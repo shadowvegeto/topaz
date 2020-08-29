@@ -1,6 +1,6 @@
 -----------------------------------------
--- Spell: Geo-Poison
--- Poisons enemies within area of effect and gradually reduces their HP. 
+-- Spell: Geo-Frailty
+-- Reduces defense for enemies within area of effect. 
 -----------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
@@ -19,5 +19,5 @@ end
 
 function onSpellCast(caster, target, spell)
     local spellCost = caster:getSpellCost(spell:getID())
-    tpz.geo.spawnLuopan(caster, target, tpz.effect.GEO_POISON, tpz.allegiance.MOB, spellCost)
+    tpz.geo.spawnLuopan(caster, target, tpz.effect.GEO_DEFENSE_DOWN, tpz.allegiance.MOB, spellCost)
 end

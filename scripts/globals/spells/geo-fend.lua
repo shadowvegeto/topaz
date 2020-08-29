@@ -1,6 +1,6 @@
 -----------------------------------------
--- Spell: Geo-Poison
--- Poisons enemies within area of effect and gradually reduces their HP. 
+-- Spell: Geo-Fend
+-- Enhances magic defense for party members within area of effect. 
 -----------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
@@ -17,7 +17,8 @@ function onMagicCastingCheck(caster, target, spell)
     end
 end
 
+
 function onSpellCast(caster, target, spell)
     local spellCost = caster:getSpellCost(spell:getID())
-    tpz.geo.spawnLuopan(caster, target, tpz.effect.GEO_POISON, tpz.allegiance.MOB, spellCost)
+    tpz.geo.spawnLuopan(caster, target, tpz.effect.GEO_MAGIC_DEF_BOOST, tpz.allegiance.PLAYER, spellCost)
 end

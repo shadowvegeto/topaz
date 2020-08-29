@@ -1,6 +1,6 @@
 -----------------------------------------
--- Spell: Indi-Regen
--- Gradually restores HP for party members near the caster. 
+-- Spell: Indi-VIT
+-- Enhances Vitality for party members near the caster. 
 -----------------------------------------
 require("scripts/globals/status")
 require("scripts/globals/msg")
@@ -10,7 +10,7 @@ require("scripts/globals/geo")
 function onMagicCastingCheck(caster, target, spell)
     if target:hasStatusEffect(tpz.effect.COLURE_ACTIVE) then
         local effect = target:getStatusEffect(tpz.effect.COLURE_ACTIVE)
-        if effect:getSubType() ==  tpz.effect.GEO_REGEN then
+        if effect:getSubType() ==  tpz.effect.GEO_VIT_BOOST then
             return tpz.msg.basic.EFFECT_ALREADY_ACTIVE
         end
     end
@@ -18,6 +18,6 @@ function onMagicCastingCheck(caster, target, spell)
 end
 
 function onSpellCast(caster, target, spell)
-    tpz.geo.doIndiSpell(caster, target, spell, tpz.effect.GEO_REGEN, tpz.allegiance.PLAYER)
+    tpz.geo.doIndiSpell(caster, target, spell, tpz.effect.GEO_VIT_BOOST, tpz.allegiance.PLAYER)
     return tpz.effect.COLURE_ACTIVE
 end
