@@ -80,6 +80,7 @@
 #include "../ai/states/magic_state.h"
 #include <optional>
 #include "../battlefield.h"
+#include "../packets/char_emotion.h"
 
 namespace luautils
 {
@@ -186,9 +187,13 @@ namespace luautils
 
     int32 free()
     {
-        ShowStatus(CL_WHITE"luautils::free" CL_RESET":lua free...");
-        lua_close(LuaHandle);
-        ShowMessage("\t - " CL_GREEN"[OK]" CL_RESET"\n");
+        if(LuaHandle)
+        {
+            ShowStatus(CL_WHITE"luautils::free" CL_RESET":lua free...");
+            lua_close(LuaHandle);
+            LuaHandle = nullptr;
+            ShowMessage("\t - " CL_GREEN"[OK]" CL_RESET"\n");
+        }
         return 0;
     }
 
@@ -702,8 +707,8 @@ namespace luautils
         if (!lua_isnil(L, 1) && lua_isnumber(L, 1))
         {
             int32 offset = (int32)lua_tointeger(L, 1);
-
-            CVanaTime::getInstance()->setCustomOffset(offset);
+            int32 custom = CVanaTime::getInstance()->getCustomEpoch();
+            CVanaTime::getInstance()->setCustomEpoch((custom ? custom : VTIME_BASEDATE) - offset);
 
             lua_pushboolean(L, true);
             return 1;
@@ -1497,8 +1502,7 @@ namespace luautils
 
     int32 OnEventUpdate(CCharEntity* PChar, uint16 eventID, uint32 result, uint16 extras)
     {
-        int32 oldtop = lua_gettop(LuaHandle);
-
+        lua_gettop(LuaHandle);
         lua_pushnil(LuaHandle);
         lua_setglobal(LuaHandle, "onEventUpdate");
 
@@ -4497,6 +4501,26 @@ namespace luautils
         {
             ShowError("luautils::onFurnitureRemoved: %s\n", lua_tostring(LuaHandle, -1));
             lua_pop(LuaHandle, 1);
+        }
+    }
+
+    void OnPlayerEmote(CCharEntity* PChar, Emote EmoteID)
+    {
+        lua_prepscript("scripts/globals/player.lua");
+
+        if (prepFile(File, "onPlayerEmote"))
+            return;
+
+        CLuaBaseEntity LuaBaseEntity(PChar);
+        Lunar<CLuaBaseEntity>::push(LuaHandle, &LuaBaseEntity);
+
+        lua_pushinteger(LuaHandle, (uint8)EmoteID);
+
+        if (lua_pcall(LuaHandle, 2, 0, 0))
+        {
+            ShowError("luautils::onEmote: %s\n", lua_tostring(LuaHandle, -1));
+            lua_pop(LuaHandle, 1);
+            return;
         }
     }
 
