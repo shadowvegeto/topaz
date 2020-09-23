@@ -10,6 +10,7 @@ on:
     branches:
       - release
       - canary
+      - 'feature/**'
 
 jobs:
   Linux_Build_32bit:
@@ -117,6 +118,7 @@ jobs:
       run: |
         sh travis_lua.sh
     - name: Clang Format (C++ files)
+      if: 'false' # Don't run until fixed
       run: |
         clang-format --version
         echo "Base Ref: ${{ github.event.pull_request.base.ref }}"

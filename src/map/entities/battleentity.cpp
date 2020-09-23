@@ -208,13 +208,15 @@ int32 CBattleEntity::GetMaxMP()
 
 /************************************************************************
 *                                                                       *
-*  Скорость перемещения с учетом модификаторов                          *
+*  Movement speed, taking into account modifiers                        *
+*  Note: retail speeds show as a float in the client,                   *
+*        yet in the packet it seems to be just one byte 0-255..         *
 *                                                                       *
 ************************************************************************/
 
 uint8 CBattleEntity::GetSpeed()
 {
-    return (isMounted() ? 50 + map_config.speed_mod : std::clamp<uint16>(speed * (100 + getMod(Mod::MOVE)) / 100, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max()));
+    return (isMounted() ? 40 + map_config.mount_speed_mod : std::clamp<uint16>(speed * (100 + getMod(Mod::MOVE)) / 100, std::numeric_limits<uint8>::min(), std::numeric_limits<uint8>::max()));
 }
 
 bool CBattleEntity::CanRest()
@@ -1184,17 +1186,37 @@ bool CBattleEntity::ValidTarget(CBattleEntity* PInitiator, uint16 targetFlags)
     {
         if (!isDead())
         {
-            if (allegiance == (PInitiator->allegiance % 2 == 0 ? PInitiator->allegiance + 1 : PInitiator->allegiance - 1))
+            // Teams PVP
+            if (allegiance >= ALLEGIANCE_WYVERNS &&
+                PInitiator->allegiance >= ALLEGIANCE_WYVERNS)
             {
-                return true;
+                return allegiance != PInitiator->allegiance;
             }
+
+            // Nation PVP
+            if ((allegiance >= ALLEGIANCE_SAN_DORIA && allegiance <= ALLEGIANCE_WINDURST) &&
+                (PInitiator->allegiance >= ALLEGIANCE_SAN_DORIA && PInitiator->allegiance <= ALLEGIANCE_WINDURST))
+            {
+                return allegiance != PInitiator->allegiance;
+            }
+
+            // PVE
+            if (allegiance <= ALLEGIANCE_PLAYER &&
+                PInitiator->allegiance <= ALLEGIANCE_PLAYER)
+            {
+                return allegiance != PInitiator->allegiance;
+            }
+
+            return false;
         }
     }
+
     if ((targetFlags & TARGET_SELF) && (this == PInitiator || (PInitiator->objtype == TYPE_PET &&
         static_cast<CPetEntity*>(PInitiator)->getPetType() == PETTYPE_AUTOMATON && this == PInitiator->PMaster)))
     {
         return true;
     }
+
     return false;
 }
 

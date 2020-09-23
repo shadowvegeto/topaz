@@ -444,7 +444,7 @@ INSERT INTO `mob_skills` VALUES (620,364,'sweep',1,10.0,2000,1500,4,0,0,0,0,0,0)
 INSERT INTO `mob_skills` VALUES (621,969,'snowball',2,11.0,2000,1500,4,0,0,0,0,0,0);
 INSERT INTO `mob_skills` VALUES (622,366,'helldive',0,9.0,2000,1500,4,0,0,2,0,0,0);
 INSERT INTO `mob_skills` VALUES (623,367,'wing_cutter',4,10.0,2000,1500,4,0,0,0,0,0,0);
--- INSERT INTO `mob_skills` VALUES (624,434,'vulture_1',0,7.0,2000,1500,4,0,0,0,0,0,0);
+INSERT INTO `mob_skills` VALUES (624,434,'vulture_1',0,7.0,2000,0,1,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (625,436,'vulture_2',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (626,437,'vulture_3',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (627,438,'vulture_4',0,7.0,2000,1500,4,0,0,0,0,0,0);
@@ -582,11 +582,11 @@ INSERT INTO `mob_skills` VALUES (755,909,'fission',0,7.0,2000,1500,4,0,0,0,0,0,0
 -- INSERT INTO `mob_skills` VALUES (759,503,'howl',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (760,504,'howl',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (761,505,'howl',0,7.0,2000,1500,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (762,354,'howl',0,7.0,2000,1500,4,0,0,0,0,0,0); -- Quadav
+INSERT INTO `mob_skills` VALUES (762,354,'howl',1,20.0,2000,1500,1,0,0,0,0,0,0);-- Quadav
 -- INSERT INTO `mob_skills` VALUES (763,507,'howl',0,7.0,2000,1500,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (764,354,'howl',0,7.0,2000,1500,4,0,0,0,0,0,0); -- Yagudo
+INSERT INTO `mob_skills` VALUES (764,354,'howl',1,20.0,2000,1500,1,0,0,0,0,0,0); -- Yagudo
 -- INSERT INTO `mob_skills` VALUES (765,509,'howl',0,7.0,2000,1500,4,0,0,0,0,0,0);
-INSERT INTO `mob_skills` VALUES (766,510,'howl',0,7.0,2000,1500,4,0,0,0,0,0,0); -- Orc
+INSERT INTO `mob_skills` VALUES (766,354,'howl',1,20.0,2000,1500,1,0,0,0,0,0,0); -- Orc
 -- INSERT INTO `mob_skills` VALUES (767,511,'bow',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (768,512,'jumping_strike',0,7.0,2000,1500,4,0,0,0,0,0,0);
 -- INSERT INTO `mob_skills` VALUES (769,513,'flying_punch',0,7.0,2000,1500,4,0,0,0,0,0,0);
