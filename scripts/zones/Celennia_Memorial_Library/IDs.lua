@@ -20,6 +20,7 @@ zones[tpz.zone.CELENNIA_MEMORIAL_LIBRARY] =
     },
     npc =
     {
+	VAINRACHAULT     = 17940506,
     },
 }
 
