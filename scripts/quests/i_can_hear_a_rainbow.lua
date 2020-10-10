@@ -146,7 +146,7 @@ quests.i_can_hear_a_rainbow.onEventUpdate = function(player)
         weather = tpz.weather.NONE
     end
 
-    if player:getCharVar("I_CAN_HEAR_A_RAINBOW") < 127 then
+    if player:getCharVar("I_CAN_HEAR_A_RAINBOW") < 1 then
         player:updateEvent(0, 0, weather)
     else
         player:updateEvent(0, 0, weather, 0)

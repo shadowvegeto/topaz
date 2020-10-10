@@ -35,3 +35,16 @@ end
 
 function onEventFinish(player, csid, option)
 end
+
+require("scripts/globals/shop")
+
+function onTrigger(player, npc)
+    local stock =
+	{
+	3341, 1000000, -- Beastly Shank
+	3342, 2000000, -- Savory Shank
+	};
+	
+	tpz.shop.general(player, stock, BEHEMOTH)
+end
+

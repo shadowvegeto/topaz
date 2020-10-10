@@ -142,7 +142,7 @@ function onGameIn(player, firstLogin, zoning)
         -- things checked ONLY during logon go here
         if firstLogin then
             CharCreate(player)
-			player:addLSpearl("FFxiPublic")
+			-- player:addLSpearl("FFxiPublic")
 		end
 
     else

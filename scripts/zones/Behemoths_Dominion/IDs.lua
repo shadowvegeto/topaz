@@ -45,6 +45,7 @@ zones[tpz.zone.BEHEMOTHS_DOMINION] =
         BEHEMOTH_QM      = 17297459,
         CASKET_BASE      = 17297460,
         CERMET_HEADSTONE = 17297493,
+		FIELD_PARCHMENT  = 17297495,
     },
 }
 
