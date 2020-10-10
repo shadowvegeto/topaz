@@ -24,13 +24,13 @@ function onSpellCast(caster, target, spell)
     local typeEffect = tpz.effect.BLINK
     local skill = caster:getSkillLevel(tpz.skill.BLUE_MAGIC)
     local power = (skill / 50)
-    local duration = 300
+    local duration = 3600
 
     -- 400 skill = 8 shadows, 450 = 9 shadows, so I am assuming every 50 skill is a shadow.
     -- Also assuming minimum of 2 shadows.
     -- I've never seen the spell cast with under 100 skill, so I could be wrong.
     if (skill < 100) then
-        power = 2
+        power = 5
     end
 
     if (caster:hasStatusEffect(tpz.effect.DIFFUSION)) then

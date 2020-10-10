@@ -36,6 +36,6 @@ function onMobDespawn(mob)
         SetServerVariable("[PH]Aspidochelone", 0)
         DisallowRespawn(ID.mob.ADAMANTOISE, false)
         UpdateNMSpawnPoint(ID.mob.ADAMANTOISE)
-        GetMobByID(ID.mob.ADAMANTOISE):setRespawnTime(75600 + math.random(0, 6) * 1800) -- 21 - 24 hours with half hour windows
+        GetMobByID(ID.mob.ADAMANTOISE):setRespawnTime(30) -- (75600 + math.random(0, 6) * 1800) -- 21 - 24 hours with half hour windows
     end
 end

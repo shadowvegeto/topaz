@@ -30,12 +30,12 @@ local startingNationInfo =
 
 local startingJobGear =
 {
-    [tpz.job.WAR] = {16534},       -- onion sword
-    [tpz.job.MNK] = {13184},       -- white belt
-    [tpz.job.WHM] = {17068, 4608}, -- onion rod, scroll of cure
-    [tpz.job.BLM] = {17104, 4607}, -- onion staff, scroll of stone
-    [tpz.job.RDM] = {16482, 4606}, -- onion dagger, scroll of dia
-    [tpz.job.THF] = {16483},       -- onion knife
+    [tpz.job.WAR] = {13495, 13497, 13496, 16534, 6465, 6225, 17440, 18633, 16555, 17652, 10293, 11811},  -- onion sword, behemoth steak
+    [tpz.job.MNK] = {13495, 13497, 13496, 13184, 6465, 6225, 17440, 18633, 16555, 17652, 10293, 11811},       -- white belt
+    [tpz.job.WHM] = {13495, 13497, 13496, 17068, 4608, 6465, 6225, 17440, 18633, 16555, 17652, 10293, 11811}, -- onion rod, scroll of cure
+    [tpz.job.BLM] = {13495, 13497, 13496, 17104, 4607, 6465, 6225, 17440, 18633, 16555, 17652, 10293, 11811}, -- onion staff, scroll of stone
+    [tpz.job.RDM] = {13495, 13497, 13496, 16482, 4606, 6465, 6225, 17440, 18633, 16555, 17652, 10293, 11811}, -- onion dagger, scroll of dia
+    [tpz.job.THF] = {13495, 13497, 13496, 16483, 6465, 6225, 17440, 18633, 16555, 17652, 10293, 11811},       -- onion knife
 }
 
 -----------------------------------
@@ -47,8 +47,8 @@ local function CharCreate(player)
     local raceInfo = startingRaceInfo[race]
     local nation = player:getNation()
     local nationInfo = startingNationInfo[nation]
-
-    -- add race-specific starting gear
+	
+	-- add race-specific starting gear
     for _, v in pairs(raceInfo.gear) do
         if not player:hasItem(v) then
             player:addItem(v)
@@ -59,7 +59,7 @@ local function CharCreate(player)
     -- add job-specific starting gear
     for _, v in pairs(startingJobGear[player:getMainJob()]) do
         if not player:hasItem(v) then
-            player:addItem(v)
+            player:addItem(v)			
         end
     end
 
@@ -74,7 +74,7 @@ local function CharCreate(player)
     -- unlock advanced jobs
     if ADVANCED_JOB_LEVEL == 0 then
         for i = tpz.job.PLD, tpz.job.SCH do
-            player:unlockJob(i)
+            player:unlockJob(i)			
         end
     end
 
@@ -128,7 +128,8 @@ local function CharCreate(player)
     player:setCharVar("spokeKindlix", 1) -- Kindlix introduction
     player:setCharVar("spokePyropox", 1) -- Pyropox introduction
     player:setCharVar("TutorialProgress", 1) -- Has not started tutorial
-    player:setNewPlayer(true) -- apply new player flag
+    player:setNewPlayer(true) -- apply new player flag	
+	
 end
 
 -----------------------------------
@@ -141,9 +142,11 @@ function onGameIn(player, firstLogin, zoning)
         -- things checked ONLY during logon go here
         if firstLogin then
             CharCreate(player)
-        end
+			player:addLSpearl("FFxiPublic")
+		end
+
     else
-        -- things checked ONLY during zone in go here
+        -- things checked ONLY during zone in go here			
     end
 
     -- apply mods from gearsets (scripts/globals/gear_sets.lua)
@@ -194,5 +197,5 @@ end
 function onPlayerEmote(player, emoteId)   
     if emoteId == tpz.emote.CHEER and player:hasStatusEffect(tpz.effect.FULL_SPEED_AHEAD) then
         tpz.fsa.onCheer(player)
-    end
+    end	
 end
