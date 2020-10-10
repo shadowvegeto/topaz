@@ -9,7 +9,7 @@
 -- Level: 8
 -- Casting Time: 7 seconds
 -- Recast Time: 60 seconds
--- Duration: 5 minutes
+-- Duration: 60 minutes
 --
 -- Combos: Max MP Boost
 -----------------------------------------
@@ -27,10 +27,10 @@ function onSpellCast(caster, target, spell)
     local typeEffect = tpz.effect.STONESKIN
     local blueskill = caster:getSkillLevel(tpz.skill.BLUE_MAGIC)
     local power = (blueskill/3) + (caster:getMainLvl()/3) + 10
-    local duration = 300
+    local duration = 3600
 
-    if (power > 150) then
-        power = 150
+    if (power > 650) then
+        power = 650
     end
 
     if (caster:hasStatusEffect(tpz.effect.DIFFUSION)) then

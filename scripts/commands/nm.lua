@@ -6,7 +6,11 @@
 
 cmdprops =
 {
+<<<<<<< HEAD
+    permission = 5,
+=======
     permission = 4,
+>>>>>>> 4b7b14ae234ece9589a715ea29e1923ad02383cc
     parameters = "iiii"
 };
 function onTrigger(player)

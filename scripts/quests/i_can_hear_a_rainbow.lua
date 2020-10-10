@@ -149,7 +149,7 @@ quests.i_can_hear_a_rainbow.onEventUpdate = function(player)
     if player:getCharVar("I_CAN_HEAR_A_RAINBOW") < 1 then
         player:updateEvent(0, 0, weather)
     else
-        player:updateEvent(0, 0, weather, 6)
+        player:updateEvent(0, 0, weather, 0)
     end
 end
 

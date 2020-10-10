@@ -31,10 +31,10 @@ end
 
 function onSpellCast(caster, target, spell)
     local dmg = 0
-    local multi = 1.5
+    local multi = 2.0
 
     if (caster:hasStatusEffect(tpz.effect.AZURE_LORE)) then
-        multi = multi + 0.50
+        multi = multi + 2.00
     end
 
     local params = {}

@@ -9,7 +9,7 @@
 -- Level: 79
 -- Casting Time: 5 seconds
 -- Recast Time: 75 seconds
--- Spell Duration: 100 ticks, 300 Seconds (5 Minutes)
+-- Spell Duration: 1200 ticks, 3600 Seconds (60 Minutes)
 --
 -- Combos: None
 -----------------------------------------
@@ -26,7 +26,7 @@ end
 function onSpellCast(caster, target, spell)
     local typeEffect = tpz.effect.REFRESH
     local power = 3
-    local duration = 300
+    local duration = 3600
 
     if (caster:hasStatusEffect(tpz.effect.DIFFUSION)) then
         local diffMerit = caster:getMerit(tpz.merit.DIFFUSION)

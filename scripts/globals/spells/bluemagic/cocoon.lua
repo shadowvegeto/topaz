@@ -9,7 +9,7 @@
 -- Level: 8
 -- Casting Time: 1.75 seconds
 -- Recast Time: 60 seconds
--- Duration: 90 seconds
+-- Duration: 3600 seconds
 --
 -- Combos: None
 -----------------------------------------
@@ -26,7 +26,7 @@ end
 function onSpellCast(caster, target, spell)
     local typeEffect = tpz.effect.DEFENSE_BOOST
     local power = 50 -- Percentage, not amount.
-    local duration = 90
+    local duration = 3600
 
     if (caster:hasStatusEffect(tpz.effect.DIFFUSION)) then
         local diffMerit = caster:getMerit(tpz.merit.DIFFUSION)
