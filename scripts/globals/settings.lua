@@ -152,4 +152,4 @@ DIG_FATIGUE = 0 -- Set to 0 to disable Dig Fatigue
 DIG_GRANT_BURROW = 1 -- Set to 1 to grant burrow ability
 DIG_GRANT_BORE = 1 -- Set to 1 to grant bore ability
 ENM_COOLDOWN = 0  -- Number of hours before a player can obtain same KI for ENMs (default: 5 days)
-FORCE_SPAWN_QM_RESET_TIME = 10 -- Number of seconds the ??? remains hidden for after the despawning of the mob it force spawns.
+FORCE_SPAWN_QM_RESET_TIME = 1 -- Number of seconds the ??? remains hidden for after the despawning of the mob it force spawns.

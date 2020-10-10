@@ -23,3 +23,17 @@ end
 
 function onEventFinish(player, csid, option)
 end
+
+require("scripts/globals/shop")
+
+function onTrigger(player, npc)
+    local stock =
+	{
+	1404, 2000000,
+	1405, 2000000,
+	1406, 2000000,
+	1407, 2000000,
+	};
+	
+	tpz.shop.general(player, stock)
+end
