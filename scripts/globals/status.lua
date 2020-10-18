@@ -791,7 +791,7 @@ tpz.effect =
     -- GoV Prowess bonus effects, real effect at ID 474
     PROWESS_CASKET_RATE      = 777, -- (Unimplemented)
     PROWESS_SKILL_RATE       = 778, -- (Unimplemented)
-    PROWESS_CRYSTAL_YEILD    = 779, -- (Unimplemented)
+    PROWESS_CRYSTAL_YIELD    = 779, -- (Unimplemented)
     PROWESS_TH               = 780, -- +1 per tier
     PROWESS_ATTACK_SPEED     = 781, -- *flat 4% for now
     PROWESS_HP_MP            = 782, -- Base 3% and another 1% per tier.
@@ -1542,6 +1542,7 @@ tpz.mod =
     SAVETP                          = 880, -- SAVETP Effect for Miser's Roll / ATMA / Hagakure.
     SMITE                           = 898, -- Att increase with H2H or 2H weapons
     TACTICAL_GUARD                  = 899, -- Tp gain increase when guarding
+    GUARD_PERCENT                   = 976, -- Guard Percent
     FENCER_TP_BONUS                 = 903, -- TP Bonus to weapon skills from Fencer Trait
     FENCER_CRITHITRATE              = 904, -- Increased Crit chance from Fencer Trait
     SHIELD_DEF_BONUS                = 905, -- Shield Defense Bonus
@@ -1567,9 +1568,9 @@ tpz.mod =
 
     -- The spares take care of finding the next ID to use so long as we don't forget to list IDs that have been freed up by refactoring.
     -- 570 - 825 used by WS DMG mods these are not spares.
-    -- SPARE = 976, -- stuff
     -- SPARE = 977, -- stuff
     -- SPARE = 978, -- stuff
+    -- SPARE = 979, -- stuff
 }
 
 tpz.latent =
