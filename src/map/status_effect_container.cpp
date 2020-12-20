@@ -1299,11 +1299,14 @@ void CStatusEffectContainer::SetEffectParams(CStatusEffect* StatusEffect)
     if (m_POwner->isAlive())
     {
         // this should actually go into a char charm AI
-        if (m_POwner->PPet != nullptr && m_POwner->objtype == TYPE_PC)
+        if (m_POwner->objtype == TYPE_PC)
         {
             if (effect == EFFECT_CHARM || effect == EFFECT_CHARM_II)
             {
-                petutils::DespawnPet(m_POwner);
+                if (m_POwner->PPet != nullptr)
+                {
+                    petutils::DespawnPet(m_POwner);
+                }
             }
         }
 
@@ -1743,9 +1746,11 @@ bool CStatusEffectContainer::CheckForElevenRoll()
 
 bool CStatusEffectContainer::IsAsleep()
 {
-    return HasStatusEffect({EFFECT_SLEEP,
+    return HasStatusEffect({
+        EFFECT_SLEEP,
         EFFECT_SLEEP_II,
-        EFFECT_LULLABY});
+        EFFECT_LULLABY
+    });
 }
 
 void CStatusEffectContainer::WakeUp()

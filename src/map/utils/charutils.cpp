@@ -29,6 +29,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 #include <stdio.h>
 #include <string.h>
 #include <array>
+#include <chrono>
 
 #include "../lua/luautils.h"
 
@@ -47,6 +48,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 #include "../packets/char_stats.h"
 #include "../packets/char_sync.h"
 #include "../packets/char_update.h"
+#include "../packets/chat_message.h"
 #include "../packets/conquest_map.h"
 #include "../packets/delivery_box.h"
 #include "../packets/inventory_item.h"
@@ -57,13 +59,14 @@ along with this program.  If not, see http://www.gnu.org/licenses/
 #include "../packets/linkshell_equip.h"
 #include "../packets/menu_merit.h"
 #include "../packets/message_basic.h"
-#include "../packets/message_debug.h"
+#include "../packets/message_combat.h"
 #include "../packets/message_special.h"
 #include "../packets/message_standard.h"
 #include "../packets/quest_mission_log.h"
-#include "../packets/chat_message.h"
+
 #include "../packets/roe_sparkupdate.h"
 #include "../packets/server_ip.h"
+#include "../packets/timer_bar_util.h"
 
 #include "../ability.h"
 #include "../alliance.h"
@@ -1912,7 +1915,7 @@ namespace charutils
                                 {
                                     UnequipItem(PChar, SLOT_MAIN, false);
                                 }
-                                else if (!((CItemWeapon*)PItem)->getSkillType() == SKILL_NONE)
+                                else if (!(((CItemWeapon*)PItem)->getSkillType() == SKILL_NONE))
                                 {
                                     //allow Grips to be equipped
                                     return false;
@@ -2265,7 +2268,7 @@ namespace charutils
                 // Unequip if no main weapon or a non-grip subslot without DW
                 if (!PChar->getEquip(SLOT_MAIN) ||
                     (!charutils::hasTrait(PChar, TRAIT_DUAL_WIELD) &&
-                     !((CItemWeapon*)PItem)->getSkillType() == SKILL_NONE))
+                     !(((CItemWeapon*)PItem)->getSkillType() == SKILL_NONE)))
                 {
                     UnequipItem(PChar, SLOT_SUB);
                     continue;
@@ -3635,7 +3638,7 @@ namespace charutils
                     PChar->PParty->ReloadParty();
                 }
 
-                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CMessageDebugPacket(PChar, PChar, PChar->jobs.job[PChar->GetMJob()], 0, 11));
+                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CMessageCombatPacket(PChar, PChar, PChar->jobs.job[PChar->GetMJob()], 0, 11));
                 luautils::OnPlayerLevelDown(PChar);
                 PChar->updatemask |= UPDATE_HP;
             }
@@ -3687,19 +3690,19 @@ namespace charutils
                 if (PChar->expChain.chainNumber != 0)
                 {
                     if (onLimitMode)
-                        PChar->pushPacket(new CMessageDebugPacket(PChar, PChar, exp, PChar->expChain.chainNumber, 372));
+                        PChar->pushPacket(new CMessageCombatPacket(PChar, PChar, exp, PChar->expChain.chainNumber, 372));
                     else
-                        PChar->pushPacket(new CMessageDebugPacket(PChar, PChar, exp, PChar->expChain.chainNumber, 253));
+                        PChar->pushPacket(new CMessageCombatPacket(PChar, PChar, exp, PChar->expChain.chainNumber, 253));
                 }
                 else
                 {
                     if (onLimitMode)
                     {
-                        PChar->pushPacket(new CMessageDebugPacket(PChar, PChar, exp, 0, 371));
+                        PChar->pushPacket(new CMessageCombatPacket(PChar, PChar, exp, 0, 371));
                     }
                     else
                     {
-                        PChar->pushPacket(new CMessageDebugPacket(PChar, PChar, exp, 0, 8));
+                        PChar->pushPacket(new CMessageCombatPacket(PChar, PChar, exp, 0, 8));
                     }
                 }
                 PChar->expChain.chainNumber++;
@@ -3707,9 +3710,9 @@ namespace charutils
             else if (exp > 0)
             {
                 if (onLimitMode)
-                    PChar->pushPacket(new CMessageDebugPacket(PChar, PChar, exp, 0, 371));
+                    PChar->pushPacket(new CMessageCombatPacket(PChar, PChar, exp, 0, 371));
                 else
-                    PChar->pushPacket(new CMessageDebugPacket(PChar, PChar, exp, 0, 8));
+                    PChar->pushPacket(new CMessageCombatPacket(PChar, PChar, exp, 0, 8));
             }
         }
 
@@ -3718,7 +3721,7 @@ namespace charutils
             //add limit points
             if (PChar->PMeritPoints->AddLimitPoints(exp))
             {
-                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CMessageDebugPacket(PChar, PMob, PChar->PMeritPoints->GetMeritPoints(), 0, 50));
+                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CMessageCombatPacket(PChar, PMob, PChar->PMeritPoints->GetMeritPoints(), 0, 50));
             }
         }
         else
@@ -3836,7 +3839,7 @@ namespace charutils
                 PChar->pushPacket(new CCharJobExtraPacket(PChar, true));
                 PChar->pushPacket(new CCharSyncPacket(PChar));
 
-                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CMessageDebugPacket(PChar, PMob, PChar->jobs.job[PChar->GetMJob()], 0, 9));
+                PChar->loc.zone->PushPacket(PChar, CHAR_INRANGE_SELF, new CMessageCombatPacket(PChar, PMob, PChar->jobs.job[PChar->GetMJob()], 0, 9));
                 PChar->pushPacket(new CCharStatsPacket(PChar));
 
                 luautils::OnPlayerLevelUp(PChar);
@@ -4625,21 +4628,21 @@ namespace charutils
 
         static const Mod strong[8] = {
             Mod::FIRE_AFFINITY_PERP,
-            Mod::EARTH_AFFINITY_PERP,
-            Mod::WATER_AFFINITY_PERP,
-            Mod::WIND_AFFINITY_PERP,
             Mod::ICE_AFFINITY_PERP,
+            Mod::WIND_AFFINITY_PERP,
+            Mod::EARTH_AFFINITY_PERP,
             Mod::THUNDER_AFFINITY_PERP,
+            Mod::WATER_AFFINITY_PERP,
             Mod::LIGHT_AFFINITY_PERP,
             Mod::DARK_AFFINITY_PERP};
 
         static const WEATHER weatherStrong[8] = {
             WEATHER_HOT_SPELL,
-            WEATHER_DUST_STORM,
-            WEATHER_RAIN,
-            WEATHER_WIND,
             WEATHER_SNOW,
+            WEATHER_WIND,
+            WEATHER_DUST_STORM,
             WEATHER_THUNDER,
+            WEATHER_RAIN,
             WEATHER_AURORAS,
             WEATHER_GLOOM};
 
@@ -4649,7 +4652,7 @@ namespace charutils
 
         reduction = reduction + PChar->getMod(strong[element]);
 
-        if (CVanaTime::getInstance()->getWeekday() == element)
+        if (battleutils::GetDayElement() == element)
         {
             reduction = reduction + PChar->getMod(Mod::DAY_REDUCTION);
         }
@@ -5238,4 +5241,22 @@ namespace charutils
         return std::max(getWideScanRange(PChar->GetMJob(), PChar->GetMLevel()), getWideScanRange(PChar->GetSJob(), PChar->GetSLevel()));
     }
 
+    void SendTimerPacket(CCharEntity* PChar, uint32 seconds)
+    {
+        auto timerPacket = new CTimerBarUtilPacket();
+        timerPacket->addCountdown(seconds);
+        PChar->pushPacket(timerPacket);
+    }
+
+    void SendTimerPacket(CCharEntity* PChar, duration dur)
+    {
+        auto timeLimitSeconds = static_cast<uint32>(std::chrono::duration_cast<std::chrono::seconds>(dur).count());
+        SendTimerPacket(PChar, timeLimitSeconds);
+    }
+
+    void SendClearTimerPacket(CCharEntity* PChar)
+    {
+        auto timerPacket = new CTimerBarUtilPacket();
+        PChar->pushPacket(timerPacket);
+    }
 }; // namespace charutils

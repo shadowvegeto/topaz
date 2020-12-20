@@ -68,7 +68,7 @@ bool CPlayerController::Engage(uint16 targid)
     {
         if (distance(PChar->loc.p, PTarget->loc.p) < 30)
         {
-            if (m_LastAttackTime + std::chrono::milliseconds(PChar->GetWeaponDelay(false)) < server_clock::now())
+            if (m_lastAttackTime + std::chrono::milliseconds(PChar->GetWeaponDelay(false)) < server_clock::now())
             {
                 if (CController::Engage(targid))
                 {
@@ -150,21 +150,30 @@ bool CPlayerController::WeaponSkill(uint16 targid, uint16 wsid)
         //#TODO: put all this in weaponskill_state
         CWeaponSkill* PWeaponSkill = battleutils::GetWeaponSkill(wsid);
 
-        if (PWeaponSkill && !charutils::hasWeaponSkill(PChar, PWeaponSkill->getID()))
+        if (PWeaponSkill == nullptr)
         {
             PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, MSGBASIC_CANNOT_USE_WS));
             return false;
         }
+
+        if (!charutils::hasWeaponSkill(PChar, PWeaponSkill->getID()))
+        {
+            PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, MSGBASIC_CANNOT_USE_WS));
+            return false;
+        }
+
         if (PChar->StatusEffectContainer->HasStatusEffect({EFFECT_AMNESIA, EFFECT_IMPAIRMENT}))
         {
             PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, MSGBASIC_CANNOT_USE_ANY_WS));
             return false;
         }
+
         if (PChar->health.tp < 1000)
         {
             PChar->pushPacket(new CMessageBasicPacket(PChar, PChar, 0, 0, MSGBASIC_NOT_ENOUGH_TP));
             return false;
         }
+
         if (PWeaponSkill->getType() == SKILL_ARCHERY || PWeaponSkill->getType() == SKILL_MARKSMANSHIP)
         {
             auto PItem = dynamic_cast<CItemWeapon*>(PChar->getEquip(SLOT_AMMO));
@@ -194,6 +203,8 @@ bool CPlayerController::WeaponSkill(uint16 targid, uint16 wsid)
             }
             roeutils::event(ROE_WSKILL_USE, PChar, RoeDatagramList{});
 
+            m_lastWeaponSkill = PWeaponSkill;
+
             return CController::WeaponSkill(targid, wsid);
         }
         else if (errMsg)
@@ -208,9 +219,14 @@ bool CPlayerController::WeaponSkill(uint16 targid, uint16 wsid)
     return false;
 }
 
-void CPlayerController::setLastAttackTime(time_point _LastAttackTime)
+time_point CPlayerController::getLastAttackTime()
 {
-    m_LastAttackTime = _LastAttackTime;
+    return m_lastAttackTime;
+}
+
+void CPlayerController::setLastAttackTime(time_point _lastAttackTime)
+{
+    m_lastAttackTime = _lastAttackTime;
 }
 
 void CPlayerController::setLastErrMsgTime(time_point _LastErrMsgTime)
@@ -221,4 +237,9 @@ void CPlayerController::setLastErrMsgTime(time_point _LastErrMsgTime)
 time_point CPlayerController::getLastErrMsgTime()
 {
     return m_errMsgTime;
+}
+
+CWeaponSkill* CPlayerController::getLastWeaponSkill()
+{
+    return m_lastWeaponSkill;
 }

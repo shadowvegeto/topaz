@@ -923,6 +923,7 @@ public:
 
     bool        canTargetEnemy();
     bool        isBuff();
+    bool        isSevere(); // damage spells that have severe effects like Death or Impact
     bool        dealsDamage(); // checks if the spell deals hp damage to target, this is relative to message
 
     uint16      getTotalTargets();
@@ -959,6 +960,7 @@ public:
     bool        hasMPCost(); // checks if spell costs mp to use
     bool        isHeal(); // is a heal spell
     bool        isCure(); // is a Cure spell
+    bool        isDebuff(); // is a debuff spell
     bool        isNa(); // is a -na spell
     bool        canHitShadow(); // check if spell ignores shadows
 

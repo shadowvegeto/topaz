@@ -680,11 +680,14 @@ uint16 CBattleEntity::ACC(uint8 attackNumber, uint8 offsetAccuracy)
                 skill = weapon->getSkillType();
                 iLvlSkill = weapon->getILvlSkill();
                 if (skill == SKILL_NONE && GetSkill(SKILL_HAND_TO_HAND) > 0)
-                    if (auto main_weapon = dynamic_cast<CItemWeapon*>(m_Weapons[SLOT_MAIN]);
-                       (main_weapon && main_weapon->getSkillType() == SKILL_NONE) || main_weapon->getSkillType() == SKILL_HAND_TO_HAND)
+                {
+                    auto main_weapon = dynamic_cast<CItemWeapon*>(m_Weapons[SLOT_MAIN]);
+                    if (main_weapon && (main_weapon->getSkillType() == SKILL_NONE || main_weapon->getSkillType() == SKILL_HAND_TO_HAND))
                     {
                         skill = SKILL_HAND_TO_HAND;
                     }
+                }
+
             }
         }
         else if (attackNumber == 2)
@@ -1792,6 +1795,7 @@ bool CBattleEntity::OnAttack(CAttackState& state, action_t& action)
     battleutils::ClaimMob(PTarget, this);
     PAI->EventHandler.triggerListener("ATTACK", this, PTarget, &action);
     PTarget->PAI->EventHandler.triggerListener("ATTACKED", PTarget, this, &action);
+    PTarget->LastAttacked = server_clock::now();
     /////////////////////////////////////////////////////////////////////////////////////////////
     // End of attack loop
     /////////////////////////////////////////////////////////////////////////////////////////////

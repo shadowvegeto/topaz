@@ -323,7 +323,7 @@ INSERT INTO `mob_family_system` VALUES (258,'Worm',1,'Amorph',0,0,70,200,4,3,6,4
 INSERT INTO `mob_family_system` VALUES (259,'OuryuWyrm',10,'Dragon',4,40,120,90,1,3,1,3,6,3,1,3,2,3,3,1,1,1,1,1,1,1.125,0,1,1,1,1,3,1,0);
 INSERT INTO `mob_family_system` VALUES (260,'FafnirWyrm',10,'Dragon',4,40,120,90,1,3,1,3,6,3,1,3,2,3,3,1,1,1,1,0.875,0.875,1,1,1,1,1,1,1,1,0);
 INSERT INTO `mob_family_system` VALUES (261,'CynoprosopiWyrm',10,'Dragon',4,40,120,90,1,3,1,3,6,3,1,3,2,3,3,1,1,1,1,0.875,1,1,1,1,1,1,1,2,1,0);
-INSERT INTO `mob_family_system` VALUES (262,'Wyrm',10,'Dragon',4,40,120,90,1,3,1,3,6,3,1,3,2,3,3,1,1,1,1,1,0.875,1,1,1,1,1,1,1,1,0);
+INSERT INTO `mob_family_system` VALUES (262,'Wyrm',10,'Dragon',4,40,120,90,1,3,1,3,6,3,1,3,2,3,3,1,1,1,1,0.875,0.875,1,1,1.125,1.125,1,1,1,1,0);
 INSERT INTO `mob_family_system` VALUES (263,'NidhoggWyrm',10,'Dragon',4,40,120,90,1,3,1,3,6,3,1,3,2,3,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0);
 INSERT INTO `mob_family_system` VALUES (264,'Wyrm',10,'Dragon',4,40,120,90,1,3,1,3,6,3,1,3,2,3,3,1,1,1,1,1,1,1,1,1,1.125,1,1,1,0,0);
 INSERT INTO `mob_family_system` VALUES (265,'SimorgWyvern',10,'Dragon',1,50,115,90,1,2,1,3,6,3,3,3,3,3,3,1,1,1,1,0.5,1.125,0.875,1,1,1,0.375,1.25,2,1,0);
@@ -409,7 +409,7 @@ INSERT INTO `mob_family_system` VALUES (347,'Marolith',3,'Asperous_Marolith',1,4
 INSERT INTO `mob_family_system` VALUES (348,'Matamata',14,'Lizard',3,30,120,90,2,5,1,6,6,4,3,3,3,3,4,1,1,1,1,1,1.25,1,0.875,1.125,0.875,1,1,4,3,0);
 INSERT INTO `mob_family_system` VALUES (349,'Geyser',18,'Unclassified',0,0,130,180,1,3,4,3,6,6,5,3,3,3,3,1,1,1,1,1,1,1.25,0.875,1,1,1.25,0.875,4,2,0);
 INSERT INTO `mob_family_system` VALUES (350,'Iron_Giant',3,'Arcana',1,40,130,130,2,3,3,3,3,6,5,3,3,3,3,1,1,1,1,1,1,1,1,1.125,1,1,1,7,3,0);
-INSERT INTO `mob_family_system` VALUES (351,'Kam_lanaut',13,'Humanoid',0,40,90,110,3,3,2,3,2,2,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,0,3,0);
+INSERT INTO `mob_family_system` VALUES (351,'Zilart',13,'Humanoid',0,40,90,110,3,3,2,3,2,2,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,0,3,0);
 INSERT INTO `mob_family_system` VALUES (352,'ArkAngel-EV',13,'Humanoid',0,40,100,90,2,5,3,6,6,2,4,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0);
 INSERT INTO `mob_family_system` VALUES (353,'ArkAngel-GK',13,'Humanoid',0,60,120,100,3,4,1,5,5,4,6,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0);
 INSERT INTO `mob_family_system` VALUES (354,'ArkAngel-HM',13,'Humanoid',0,60,90,110,3,3,2,3,2,2,3,3,3,3,3,1,1,1,1,1,1,1,1,1,1,1,1,0,1,0);
