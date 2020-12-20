@@ -1,21 +1,16 @@
-﻿/*
+/*
 ===========================================================================
-
   Copyright (c) 2010-2015 Darkstar Dev Teams
-
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
   (at your option) any later version.
-
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU General Public License for more details.
-
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see http://www.gnu.org/licenses/
-
 ===========================================================================
 */
 
@@ -74,8 +69,10 @@ CCharStatsPacket::CCharStatsPacket(CCharEntity * PChar)
 	ref<uint16>(0x48) = PChar->profile.rankpoints;
     ref<uint16>(0x4A) = PChar->profile.home_point.destination;
 	ref<uint8>(0x50) = PChar->profile.nation;
-    ref<uint8>(0x52) = PChar->GetMLevel () == 99? 5: 0;
-	//0x54 = maximum item level
+
+    //0x51 = New character has this as 0x01, 0x03 on seasoned 99
+    //0x52 = superior level (1 or 2)
+    //0x54 = maximum item level
     //0x55 = itemlevel over 99
     //0x56 = main weapon item level
 }
